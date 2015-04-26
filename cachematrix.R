@@ -1,13 +1,18 @@
-## Put comments here that give an overall description of what your
-## functions do
+## The flow of function is very similar to what was provided
+## for the example with the mean
 
-## Write a short comment describing this function
+## Chnages implemented are as follows:
+## 1) a variable n is introduced defining the dimension of square matrix
+## 2) Instead of NULL, NA is being used to fill in the inverted matrix for
+## the time inverse is not computed
+## 3) mean fucntion has been replaced by solve
+## 4) variable names have been chaged to represent the inversion of materix
 
-makeCacheMatrix <- function(x = matrix()) {
-	xinv <- NULL
+makeCacheMatrix <- function(x = matrix(,n,n)) {
+	xinv <- matrix(NA,n,n)
         set <- function(y) {
                 x <<- y
-                xinv <<- NULL
+                xinv <<- matrix(NA,n,n)
         }
         get <- function() x
         setinverse <- function(solve) xinv <<- solve
@@ -18,18 +23,15 @@ makeCacheMatrix <- function(x = matrix()) {
 
 }
 
-
-## Write a short comment describing this function
-
-cacheSolve <- function(x, ...) {
+cacheSolve <- function(x, n, ...) {
 	xinv <- x$getinverse()
-	        if(!is.null(xinv)) {
+	        if(!is.na(xinv)) {
 	                message("getting cached data")
 	                return(xinv)
 	        }
 	        data <- x$get()
 	        xinv <- solve(data, ...)
-	        x$setmean(xinv)
+	        x$setinverse(xinv)
         xinv
 }
 
